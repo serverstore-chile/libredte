@@ -1,0 +1,14 @@
+{
+    auto_https off
+}
+
+:80 {
+    @sin_clave {
+        not header X-API-Key {$SERVERSTORE_API_KEY}
+    }
+
+    respond @sin_clave "No autorizado" 401
+
+    root * /app/public
+    php_server
+}
